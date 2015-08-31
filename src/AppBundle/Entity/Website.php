@@ -17,11 +17,53 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @package AppBundle\Entity
  *
- * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Doctrine\Orm\UserRepository")
- * @UniqueEntity("name")
+ * @ORM\Table(name="websites")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Doctrine\Orm\WebsiteRepository")
  */
 class Website
 {
+    protected $id;
+    protected $link;
+
+    /**
+     * Website constructor.
+     */
+    public function __construct()
+    {
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
 
 }
