@@ -22,8 +22,30 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Website
 {
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     * @ORM\Column(name="link", type="string", length=20, nullable=false)
+     *
+     * @var string
+     */
     protected $link;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="websites")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
+     * @var int
+     */
+    protected $userId;
 
     /**
      * Website constructor.
@@ -34,7 +56,7 @@ class Website
 
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -42,7 +64,7 @@ class Website
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -50,7 +72,7 @@ class Website
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLink()
     {
@@ -58,12 +80,30 @@ class Website
     }
 
     /**
-     * @param mixed $link
+     * @param string $link
      */
     public function setLink($link)
     {
         $this->link = $link;
     }
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+
 
 
 }

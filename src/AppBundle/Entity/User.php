@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -23,9 +24,35 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User
 {
 
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     * @ORM\Column(name="username", type="string", length=20, nullable=false)
+     *
+     * @var string
+     */
     protected $username;
+
+    /**
+     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     *
+     * @var string
+     */
     protected $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Website", mappedBy="user")
+     *
+     * @var ArrayCollection
+     */
     protected $websites;
 
     /**
@@ -33,10 +60,12 @@ class User
      */
     public function __construct()
     {
+        $this->websites = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     *
+     * @return int
      */
     public function getId()
     {
@@ -44,7 +73,7 @@ class User
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -52,7 +81,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUsername()
     {
@@ -60,7 +89,7 @@ class User
     }
 
     /**
-     * @param mixed $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -68,7 +97,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -76,7 +105,7 @@ class User
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -84,19 +113,25 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getWebsites()
     {
         return $this->websites;
     }
-
     /**
-     * @param mixed $websites
+     * @param Website $website
      */
-    public function setWebsites($websites)
+    public function addWebsite(Website $website)
     {
-        $this->websites = $websites;
+        $this->websites->add($website);
+    }
+    /**
+     * @param Website $website
+     */
+    public function removeWebsite(Website $website)
+    {
+        $this->websites->removeElement($website);
     }
 
 
